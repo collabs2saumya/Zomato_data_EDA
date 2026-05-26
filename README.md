@@ -17,7 +17,7 @@ riders: Tracks delivery rider sign-ups and metadata.
 deliveries: Logistical logs containing statuses and time metrics of completed/failed deliveries.
 
 Data Definition Language (DDL) Script
-'''-- 1. Create Customers Table
+``` -- 1. Create Customers Table
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY,
     customer_name VARCHAR(25),
@@ -71,4 +71,4 @@ CREATE TABLE deliveries (
     rider_id INT,
     CONSTRAINT fk_orders FOREIGN KEY (order_id) REFERENCES orders(order_id),
     CONSTRAINT fk_riders FOREIGN KEY (rider_id) REFERENCES riders(rider_id)
-);'''
+);```
