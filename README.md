@@ -16,7 +16,8 @@ riders: Tracks delivery rider sign-ups and metadata.
 
 deliveries: Logistical logs containing statuses and time metrics of completed/failed deliveries.
 
-```CREATE TABLE customers
+```--Zomato Data Analysis
+CREATE TABLE customers
 (
 customer_id INT PRIMARY KEY,
 customer_name VARCHAR(25),
@@ -48,7 +49,7 @@ total_amount FLOAT
 ALTER TABLE orders
 ADD CONSTRAINT fk_customers
 FOREIGN KEY (customer_id)
-REFERENCES customers(customer_id
+REFERENCES customers(customer_id)
 
 ALTER TABLE orders
 ADD CONSTRAINT fk_restaurents
@@ -146,7 +147,7 @@ WHERE EXISTS (
 --ANALYSIS & REPORTS
 
 --Q1- WRITE A QUERY TO FIND TOP FREQUENTLY ORDERED DISHES BY CUSTOMERS CALLED
--- "Priya Sharma" IN LAST 2 YEAR
+-- "Nisha Chaudhary" IN LAST 3 YEAR
 
 --join cx and orders , 
 --filter for last 1 year , 
@@ -168,9 +169,9 @@ from orders as o
 Join customers as c
 ON c.customer_id = o.customer_id
 where 
-      o.order_date >= CURRENT_DATE - INTERVAL '2 Year'
+      o.order_date >= CURRENT_DATE - INTERVAL '3 Year'
 	  and 
-	  c.customer_name = 'Priya Sharma'
+	  c.customer_name = 'Nisha Chaudhary'
 Group by 1,2,3
 order by 1,4 DESC
 ) as t1
@@ -223,7 +224,7 @@ ORDER BY 3 DESC;
 
 
 --ORDER VALUE ANALYSIS
---Q3 FIND THE AVERAGE ORDER VALUE PER CUSTOMER WHO HAS PLACED MORE THAN 10 
+--Q3 FIND THE AVERAGE ORDER VALUE PER CUSTOMER WHO HAS PLACED MORE THAN 4
 --ORDERS , RETURN customer_name and aov(average order value)
 
 select 
@@ -236,7 +237,7 @@ from orders as o
 join customers as c
 on c.customer_id = o.customer_id
 group by 1,2
-having count(order_id) > 10
+having count(order_id) > 4
 
 --HIGH VALUE CUSTOMERS
 -- Q4 LIST THE CUSTOMERS WHO HAVE SPENT MORE THAN 5000rs IN TOTAL ON FOOD ORDERS
@@ -249,12 +250,12 @@ from orders as o
 join customers as c
 on c.customer_id = o.customer_id
 group by 1
- having  sum(o.total_amount) > 5000
+ having  sum(o.total_amount) > 10000
  order by 2 desc
 
 
 --ORDERS WITHOUT DELIVERY
---Q5 WRITE QUERY TO FINF ORDERS THAT WERE PLACED BUT NOT DELIVERED
+--Q5 WRITE QUERY TO FIND ORDERS THAT WERE PLACED BUT NOT DELIVERED
 --RETURN EACH RESTAURANT NAME , CITY , NUMBER OF NOT DELIEVERED ORDERS
 
  
@@ -620,6 +621,8 @@ FROM orders as o
 JOIN restaurents as r
 ON o.restaurant_id = r.restaurant_id
 GROUP BY 1
+..................................................................................................................................................................
+
 ```
 # 📚 Learning Outcomes
 
